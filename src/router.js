@@ -18,12 +18,12 @@ export default new Router({
     {
       path: '/projects',
       name: 'projects',  
-      omponent: Projects
+      component: Projects
     },
     {
       path: '/teams',
       name: 'teams',  
-      omponent: Teams
+      component: Teams
     } 
   ]
 })
