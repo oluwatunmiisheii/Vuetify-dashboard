@@ -36,8 +36,8 @@ export default {
             drawer: false,
             links: [
                 {icon:'dashboard', text: 'Dashbord', route: '/'},
-                {icon:'folder', text: 'My Projects', route: '/projects'},
-                {icon:'person', text: 'Team', route: '/teams'}
+                {icon:'folder', text: 'Projects', route: '/projects'},
+                {icon:'people', text: 'Team', route: '/teams'}
             ]
         }
     }
