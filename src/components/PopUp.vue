@@ -11,6 +11,13 @@
                 <v-form class="px-3" ref="form">
                     <v-text-field :rules="input_rules" label="Title" v-model="title" prepend-icon="folder"></v-text-field>
                     <v-textarea :rules="input_rules" label="Information" v-model="content" prepend-icon="edit"></v-textarea>
+                    <v-select
+                        v-model="person"
+                        :items="users"
+                        :rules="[v => !!v || 'A team member is required']"
+                        label="Assign project to"
+                        required
+                    ></v-select>
                     <v-menu>
                         <v-text-field :rules="input_rules" slot="activator" label="Due date" prepend-icon="folder" :value="formattedDate"></v-text-field>
                         <v-date-picker v-model="due"></v-date-picker>
@@ -34,6 +41,14 @@ export default {
             loading: false,
             dialog: false,
             due: null,
+            person: null,
+            users: [
+                'Adenuga Tunmise',
+                'Paul Daniel',
+                'Chibike chibs',
+                'Aiyemitibo Abiodun',
+                'Chinedu Uche'
+            ],
             input_rules: [
                 v => v.length >= 3 || 'Minimum length is 3 characters'
             ],
@@ -52,7 +67,7 @@ export default {
                     title: this.title,
                     content: this.content,
                     due: format(this.due, 'Do MMM YYYY'),
-                    person: 'Adenuga Tunmise',
+                    person: this.person,
                     status: 'ongoing'
                 }
                 db.collection('projects').add(project).then(() => {

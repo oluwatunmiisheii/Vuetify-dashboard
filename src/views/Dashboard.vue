@@ -30,7 +30,7 @@
           <span>sort project by person</span>
         </v-tooltip>
       </v-layout>
-      <v-card flat v-for="project in projects" :key="project.title">
+      <v-card flat v-for="project in projects" :key="project.id">
         <v-layout row wrap :class="`pa-3 project ${project.status}`">
           <v-flex xs12 md6>
              <div class="caption grey--text">
@@ -61,45 +61,30 @@
 
 
 <script>
+import db from '@/fb'
   export default {
     data() {
       return {
-        projects: [
-          { 
-            title: 'Design a new website', 
-            person: 'Adenuga Tunmise', 
-            due: '1st Jan 2019', 
-            status: 'ongoing', 
-            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur iusto, maiores numquam minus sunt illum nisi modi omnis, veritatis doloribus velit facere similique magnam praesentium corporis laborum, cum nam consectetur'
-          },
-          { 
-            title: 'Code up the homepage', 
-            person: 'Paul Daniel', 
-            due: '10th Jan 2019', 
-            status: 'complete', 
-            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur iusto, maiores numquam minus sunt illum nisi modi omnis, veritatis doloribus velit facere similique magnam praesentium corporis laborum, cum nam consectetur'
-          },
-          {
-            title: 'Design Video thumbnails', 
-            person: 'Chinedu Uche', 
-            due: '20th Jan 2019', 
-            status: 'complete', 
-            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur iusto, maiores numquam minus sunt illum nisi modi omnis, veritatis doloribus velit facere similique magnam praesentium corporis laborum, cum nam consectetur'
-          },
-          {
-            title: 'Create a community forum', 
-            person: 'Abiodun Aiyemitibo', 
-            due: '20th Dec 2018', 
-            status: 'overdue', 
-            content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur iusto, maiores numquam minus sunt illum nisi modi omnis, veritatis doloribus velit facere similique magnam praesentium corporis laborum, cum nam consectetur'
-          },
-        ]
+        projects: []
       }
     },
     methods: {
       sort_by(property) {
         this.projects.sort((a,b) => a[property] < b[property] ? -1 : 1) 
       }
+    },
+    created() {
+      db.collection('projects').onSnapshot(res => {
+        const changes = res.docChanges();
+        changes.forEach(change => {
+          if(change.type === 'added') {
+            this.projects.push({
+              ...change.doc.data(),
+              id: change.doc.id
+            })
+          }
+        })
+      })
     }
   }
 </script>
