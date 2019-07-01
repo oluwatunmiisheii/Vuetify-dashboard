@@ -6,9 +6,9 @@
         <v-flex xs12 sm6 lg3 v-for="person in team" :key="person.name">
           <v-card flat class="text-xs-center ma-3">
             <v-responsive class="pt-4">
-              <v-avartar>
-                <img :src="person.avatar" />
-              </v-avartar>
+              <v-avatar size="100" class="grey lighten-2">
+                <img :src="person.avatar"/>
+              </v-avatar>
             </v-responsive>
             <v-card-text>
               <div class="subheading">{{person.name}}</div>
@@ -32,12 +32,32 @@
     data () {
       return {
         team: [
-        { name: 'The Net Ninja', role: 'Web developer', avatar: '/assets/img/avatar-1.png'},
-        { name: 'Ryu', role: 'Graphic designer',  avatar: '/assets/img/avatar-2.png'},
-        { name: 'Chun Li', role: 'Web developer', avatar: '/assets/img/avatar-3.png'},
-        { name: 'Gouken', role: 'Social media maverick',  avatar:'/assets/img/avatar-4.png'},
-        { name: 'Yoshi', role: 'Sales guru', avatar:'/assets/img/avatar-5.png'}
-      ]
+          { 
+            name: 'Adenuga Tunmise', 
+            role: 'frontend developer', 
+            avatar: '/assets/img/avatar-1.png'
+          },
+          { 
+            name: 'Paul Daniel', 
+            role: 'frontend developer',  
+            avatar: '/assets/img/avatar-2.png'
+          },
+          { 
+            name: 'Chibike chibs', 
+            role: 'backend developer', 
+            avatar: '/assets/img/avatar-3.png'
+          },
+          { 
+            name: 'Aiyemitibo Abiodun', 
+            role: 'frontend developer',  
+            avatar:'/assets/img/avatar-4.png'
+          },
+          { 
+            name: 'Chinedu Uche', 
+            role: 'frontend lead', 
+            avatar:'/assets/img/avatar-5.png'
+          }
+        ]
       }
     }
   }

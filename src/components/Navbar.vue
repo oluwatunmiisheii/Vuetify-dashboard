@@ -2,17 +2,42 @@
     <nav>
         <v-toolbar flat app>
             <v-toolbar-side-icon @click="drawer = !drawer" class="grey--text"></v-toolbar-side-icon>
-            <v-toolbal-title class="text-uppercase grey--text">
+            <!-- <v-toolbar-title class="text-uppercase grey--text">
                 <span class="font-weight-light">todo</span>
                 <span>List</span>
-            </v-toolbal-title>
+            </v-toolbar-title> -->
             <v-spacer></v-spacer>
+
+            <v-menu offset-y>
+                <v-btn flat slot="activator" color="grey">
+                    <span>menu</span>
+                    <v-icon right>expand_more</v-icon>
+                </v-btn>
+                <v-list>
+                    <v-list-tile v-for="link in links" :key="link.text" router :to="link.route"> 
+                        <v-list-tile-title>{{link.text}}</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
             <v-btn flat color="grey">
                 <span>sign out</span>
                 <v-icon right>exit_to_app</v-icon>
             </v-btn>
         </v-toolbar>
         <v-navigation-drawer v-model="drawer" app class="primary">
+            <v-layout column align-center>
+                <v-flex class="mt-5">
+                    <v-avatar size="100" class="grey lighten-2">
+                        <img src="/assets/img/avatar-1.png"/>
+                    </v-avatar>
+                    <p class="white--text subheading mt-1">
+                        Adenuga Tunmise
+                    </p>
+                </v-flex>
+                <v-flex class="mt-4 mb-3">
+                    <Popup />
+                </v-flex>
+            </v-layout>
            <v-list>
                <v-list-tile v-for="link in links" :key="link.icon" router :to="link.route">
                    <v-list-tile-action>
@@ -30,13 +55,15 @@
 </template>
 
 <script>
+import Popup from './PopUp'
 export default {
+    components: { Popup },
     data() {
         return {
             drawer: false,
             links: [
                 {icon:'dashboard', text: 'Dashbord', route: '/'},
-                {icon:'folder', text: 'Projects', route: '/projects'},
+                {icon:'folder', text: 'My Projects', route: '/projects'},
                 {icon:'people', text: 'Team', route: '/teams'}
             ]
         }
